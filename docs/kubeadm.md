@@ -169,21 +169,22 @@ Before you can deploy applications to it, you need to install a pod network.
 
 ### (4/4) Installing a pod network
 
-You must install a pod network add-on so that your pods can communicate with eachother when they are on different hosts.
+You must install a network add-on so that your pods can communicate with each other when they are on different hosts.  **This should be done before 
+you deploy any applications to your cluster.**
 
-Several projects provide Kubernetes pod networks.
-A simple one with no infrastructure or database dependencies is Weave Net, which you can install by running, on the master:
+You can install your chosen pod network by running the following on the master, replacing `<chosen-network.yaml>` with your preferred pod network manifest:
 
-    # kubectl apply -f https://git.io/weave-kube
-    daemonset "weave-net" created
+    # kubectl apply -f <chosen-network.yaml>
+    daemonset "<chosen-network>" created
 
-**You should run this on the master before you try to deploy any applications to your cluster.**
+You can find a curated list of available network add-ons and links to the documentation for each on the [add-ons page](/docs/admin/addons/).  Here are a few examples:
 
-Once the command has completed, a few seconds later you should see the `weave-net` pods and the `kube-dns` pod go into `Running` in the output of `kubectl get pods --all-namespaces`. **This signifies that your cluster is ready.**
+* Calico: `kubectl apply -f <manifest-url>`
+* Canal: `kubectl apply -f <manifest-url>`
+* Weave Net: `kubectl apply -f <manifest-url>`
 
-You can learn more about Weave for Kubernetes on the project's [GitHub page](https://github.com/weaveworks/weave-kube).
+Once the command has completed, a few seconds later you should see the `kube-dns` pod go into `Running` state in the output of `kubectl get pods --all-namespaces`. **This signifies that your cluster is ready.**
 
-You can see a complete list of available network add-ons on the [add-ons page](/docs/admin/addons/).
 
 ### (Optional) Installing a sample application
 
